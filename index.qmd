@@ -15,19 +15,29 @@ library(sf)
 library(mapview)
 
 map_colors <- c(
-  "#054141", "#08605F", "#638A79", "#8E936D", "#9BA461", "#B9C182", "#DBDFBE"
+  "#290E10", "#3C1518", "#872B07", "#A44200", "#D49F56", "#EBD990", "#F3F4B5"
 )
 
+huc10 <- read_sf("watersheds.geojson")
+
+xy <- huc10 |> 
+  st_union() |> 
+  st_centroid() |> 
+  st_coordinates() |> 
+  c()
+
 mapview(
-  read_sf("watersheds.geojson"), 
+  huc10, 
   zcol = "huc4", 
   layer.name = "HUC10",
   legend = FALSE, 
   lwd = 0.8, 
   color = "#24292F",
   col.region = map_colors,
-  alpha.regions = 0.4
-)
+  alpha.regions = 0.5,
+  zoom = 7
+)@map |> 
+  leaflet::setView(xy[1], xy[2], zoom = 6)
 
 ```
 
