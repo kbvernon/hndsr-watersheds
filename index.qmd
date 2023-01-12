@@ -29,7 +29,8 @@ mapview(
   legend = FALSE, 
   lwd = 0.8, 
   color = "#24292F",
-  col.region = map_colors
+  col.region = map_colors,
+  alpha.regions = 0.4
 )
 
 ```
