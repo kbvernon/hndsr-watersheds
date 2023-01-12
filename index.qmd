@@ -34,7 +34,7 @@ mapview(
   lwd = 0.8, 
   color = "#24292F",
   col.region = map_colors,
-  alpha.regions = 0.5,
+  alpha.regions = 0.4,
   zoom = 7
 )@map |> 
   leaflet::setView(xy[1], xy[2], zoom = 6)
