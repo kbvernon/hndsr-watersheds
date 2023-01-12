@@ -7,10 +7,10 @@ library(tidyverse)
 
 owin <- st_bbox(
   c(
-    xmin = -113.27329,
-    ymin = 29.69843, 
-    xmax = -105.22713, 
-    ymax = 38.60808
+    xmin = -113.35,
+    ymin = 30.05, 
+    xmax = -105.35, 
+    ymax = 38.25
   )
 ) |> 
   st_as_sfc() |> 
@@ -18,16 +18,15 @@ owin <- st_bbox(
 
 watersheds <- get_wbd(owin, "hndsr")
 
-huc6_ids <- c(130301, 130302, 130202, 140801, 140802,
-              150200, 150400, 150501:150503, 150601)
+huc4_ids <- c(1302, 1303, 1408, 1502, 1504, 1505, 1506)
 
 huc10 <- watersheds |> 
-  ms_simplify(keep = 0.08) |> 
-  select(vpuid, huc12, name) |> 
-  filter(substr(huc12, 1, 6) %in% huc6_ids) |> 
+  select(huc12, name) |> 
+  filter(substr(huc12, 1, 4) %in% huc4_ids) |> 
+  ms_simplify(keep = 0.07) |> 
   mutate(huc10 = substr(huc12, 1, 10)) |> 
   group_by(huc10) |> 
   summarize() |>
-  mutate(huc6 = substr(huc10, 1, 6))
+  mutate(huc4 = substr(huc10, 1, 4))
 
 write_sf(huc10, "watersheds.geojson")
