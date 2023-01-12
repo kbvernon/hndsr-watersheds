@@ -1,0 +1,36 @@
+---
+title: "Watersheds for HNDS-R Project"
+format: html
+execute:
+  echo: false
+  warning: false
+---
+
+This map shows the distribution of HUC10 watersheds across parts of New Mexico and Arizona. Watersheds are color-coded by the larger HUC6 watershed that contains them. You can find the HUC ID for each watershed by clicking the feature on the map.
+
+```{r}
+#| fig-height: 4
+
+library(sf)
+library(mapview)
+
+
+
+map_colors <- c(
+  "#054141", "#08605F", "#388185", "#498581", "#638A79", 
+  "#8E936D", "#9BA461", "#A2AD59", "#B9C182", "#CAD1A0", 
+  "#DBDFBE"
+)
+
+mapview(
+  read_sf("watersheds.geojson"), 
+  zcol = "huc6", 
+  layer.name = "HUC10",
+  legend = FALSE, 
+  lwd = 0.8, 
+  color = "#24292F",
+  col.region = map_colors
+)
+
+```
+
