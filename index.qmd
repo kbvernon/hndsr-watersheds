@@ -14,30 +14,30 @@ This map shows the distribution of HUC10 watersheds across parts of New Mexico a
 library(sf)
 library(mapview)
 
-map_colors <- c(
-  "#290E10", "#3C1518", "#872B07", "#A44200", "#D49F56", "#EBD990", "#F3F4B5"
-)
+# map_colors <- c(
+#   "#290E10", "#3C1518", "#872B07", "#A44200", "#D49F56", "#EBD990", "#F3F4B5"
+# )
 
 huc10 <- read_sf("watersheds.geojson")
 
-xy <- huc10 |> 
-  st_union() |> 
-  st_centroid() |> 
-  st_coordinates() |> 
-  c()
+# xy <- huc10 |> 
+#   st_union() |> 
+#   st_centroid() |> 
+#   st_coordinates() |> 
+#   c()
 
 mapview(
   huc10, 
-  zcol = "huc4", 
+  zcol = "Subregion", 
   layer.name = "HUC10",
   legend = FALSE, 
   lwd = 0.8, 
   color = "#24292F",
-  col.region = map_colors,
+  # col.region = map_colors,
   alpha.regions = 0.4,
   zoom = 7
-)@map |> 
-  leaflet::setView(xy[1], xy[2], zoom = 6)
+)#@map |> 
+  # leaflet::setView(xy[1], xy[2], zoom = 6)
 
 ```
 
