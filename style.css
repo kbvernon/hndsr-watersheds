@@ -1,0 +1,105 @@
+
+.leaflet-container 
+.leaflet-control-attribution {
+  background: rgba(255, 255, 255, 0.7) !important;
+  margin: 0;
+}
+
+.leaflet-control-attribution, 
+.leaflet-control-scale-line {
+  padding: 0 5px !important;
+  color: #333 !important;
+  font-size: 11px;
+}
+
+.leaflet-container {
+  font: 12px/1.5 "Helvetica Neue", Arial, Helvetica, sans-serif !important;
+}
+
+.panel-grid {
+  gap: 0.7em;
+}
+
+/*
+.ojs-in-a-box-waiting-for-module-import.observablehq label {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #424242;
+}
+*/
+
+input[type="radio"], input[type="checkbox"] {
+    margin: 0px 0px 0px 0px;
+}
+
+.btn.btn-quarto, div.cell-output-display .btn-quarto {
+  margin: 0.5rem 0.15rem;
+}
+
+.results-container label {
+  flex-shrink: 0;
+  align-self: start;
+  padding: 5px 0 4px 0;
+  width: var(--label-width);
+  margin-right: var(--length2);
+}
+
+.results {
+  width: 100%;
+  height: 200px;
+  max-height: 200px;
+  background-color: var(--bs-body-bg);
+  border: 1px solid rgb(118, 118, 118);
+  border-radius: 2px;
+  overflow-y: auto;
+}
+
+.results-container p {
+  padding: 5px;
+  font-size: 11px;
+  background-color: white;
+}
+
+.leaflet-popup-content-wrapper,
+.leaflet-popup-content {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.popup {
+  margin: 0;
+  padding: 8px;
+  border: 1px solid rgb(118, 118, 118);
+  border-radius: 2px;
+  font-size: 12px;
+  font-weight: 700px;
+  font-color: black;
+}
+
+.popup h4 {
+  font-size: 16px;
+  font-weight: 800;
+  margin-top: 0;
+}
+
+.popup ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.popup b {
+  font-weight: 700;
+}
+
+*,
+*:focus,
+*:hover {
+    outline: none;
+}
+
+label {
+  font-color: black;
+  font-size: 1.1em;
+  font-weight: 500;
+}
