@@ -346,18 +346,21 @@ geojson.eachLayer(e => {
   let p = e.feature.properties;
   let d = updateBasin[0];
   let b = updateBasin[1]
+  let i = results.indexOf(p.hydrologic_unit);
   
   if (p.basin == b) {
   
     if (d == "add") {
+    
+      if (i < 0) {
   
-      e.setStyle(styles.select);
-      results.push(p.hydrologic_unit);
-      mutable trigger += 1;
+        e.setStyle(styles.select);
+        results.push(p.hydrologic_unit);
+        mutable trigger += 1;
+        
+      };
   
     } else { 
-
-      let i = results.indexOf(p.hydrologic_unit);
 
       if (i > -1) {
       
