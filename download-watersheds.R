@@ -1,6 +1,5 @@
 
 library(here)
-library(httr2)
 library(lwgeom)
 library(rmapshaper)
 library(sf)
