@@ -357,9 +357,15 @@ geojson.eachLayer(e => {
   
     } else { 
 
-      e.setStyle(styles.basic);
-      results.splice(results.indexOf(p.hydrologic_unit), 1);
-      mutable trigger -= 1;      
+      let i = results.indexOf(p.hydrologic_unit);
+
+      if (i > -1) {
+      
+        e.setStyle(styles.basic);
+        results.splice(i, 1);
+        mutable trigger -= 1;
+      
+      };
   
     };
   
