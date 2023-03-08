@@ -1,0 +1,14 @@
+---
+title: "Watersheds for HNDS-R Project"
+description: "This map provides simple tools for exploring population change across HUC10 watersheds and 100-year intervals. For visualization purposes, estimates are log-transformed and normalized. You can also see the mean room count for each interval by hovering your mouse over the watershed polygon."
+format: 
+  html:
+    page-layout: full
+execute:
+  echo: false
+  warning: false
+---
+
+:::::: {.column-page-inset}
+<iframe style="width:100%; height:575px;" src="plotly-map-only.html"></iframe> 
+::::::
