@@ -15,7 +15,8 @@ watersheds <- here("data", "watersheds.geojson") |>
   read_sf() |> 
   rename("name" = watershed, "watershed" = hydrologic_unit) |> 
   relocate(watershed, name) |> 
-  filter(watershed %in% selection)
+  filter(watershed %in% selection) |> 
+  mutate(area_km2 = st_area(geometry) |> units::set_units(km^2) |> units::drop_units())
 
 xy <- watersheds |> 
   st_union() |> 
@@ -24,10 +25,10 @@ xy <- watersheds |>
   c()
 
 # standard cyberSW date ranges
-min_year <- 700
+min_year <- 750
 max_year <- 1600
 
-years <- seq(min_year, max_year, by = 100)
+years <- seq(min_year, max_year, by = 25)
 
 room_counts <- here("data", "cyberSW-datacut-230224_room-allocations.csv") |> 
   read_csv() |> 
@@ -59,54 +60,48 @@ room_counts <- room_counts |>
   ) |> 
   ungroup() |> 
   distinct() |> 
-  mutate(year = floor(year/100)*100) |> 
-  group_by(watershed, year) |> 
-  summarize(
-    mu = mean(rooms),
-    rooms = ifelse(mu > 0, log(mu), log(0.0001))
-  ) |> 
-  ungroup() |> 
-  mutate(
-    rooms = scales::rescale(rooms, to = c(0, 1)),
-    rooms = round(rooms, 3),
-    mu = round(mu, 3),
-    watershed = as.character(watershed)
-  ) |> 
+  mutate(watershed = as.character(watershed)) |> 
   left_join(
     watersheds |> st_drop_geometry(), 
     by = "watershed"
   ) |> 
   mutate(
+    density = rooms/area_km2,
+    log_density = ifelse(density > 0, log(density), log(1e-5)),
+    across(c(area_km2, log_density, density, rooms), ~round(.x, 3)),
     hover = paste0(
       "<b style='font-size:1.4em;'>", name, "</b><br>",
       "<b>ID:</b> ", watershed, "<br>",
       "<b>Basin:</b> ", basin, "<br>",
       "<b>Year:</b> ", year, "<br>",
-      "<b>Mean estimate:</b> ", mu, "<br>",
-      "<b>Transform estimate:</b> ", rooms
+      "<b>Count:</b> ", rooms, "<br>",
+      "<b>Area (km<sup>2</sup>):</b> ", area_km2, "<br>",
+      "<b>Density:</b> ", density, "<br>",
+      "<b>Log density:</b> ", log_density
     )
   ) |> 
-  select(watershed, year, rooms, hover) |> 
+  select(watershed, year, log_density, hover) |> 
   rename("hydrologic_unit" = watershed)
 
-remove(min_year, max_year, years, watersheds, missing_watersheds)
+# remove(min_year, max_year, years, watersheds, missing_watersheds)
 
-geojson <- rjson::fromJSON(file = here("data", "watersheds.geojson"))
-
-geojson$features <- geojson$features |> keep(\(x){ x$properties$hydrologic_unit %in% selection })
+sauce <- paste0(
+  "https://raw.githubusercontent.com/kbvernon/",
+  "hndsr-watersheds/main/data/watersheds.geojson"
+)
 
 p <- plot_ly() |> 
   add_trace(
     type = "choroplethmapbox",
-    geojson = geojson,
+    geojson = sauce,
     locations = room_counts$hydrologic_unit,
     featureidkey = "properties.hydrologic_unit",
     stroke = I("#fafafa"),
     span = I(0.4),
     frame = room_counts$year,
-    z = room_counts$rooms,
-    zmin = 0,
-    zmax = 1,
+    z = room_counts$log_density,
+    zmin = floor(min(room_counts$log_density)),
+    zmax = ceiling(max(room_counts$log_density)),
     colorscale = "Viridis",
     text = room_counts$hover,
     hoverinfo = "text",
