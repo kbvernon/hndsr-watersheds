@@ -38,6 +38,7 @@ room_counts <- here("data", "cyberSW-datacut-230224_room-allocations.csv") |>
     "rooms" = "allocatedRooms"
   ) |> 
   select(watershed, year, rooms) |> 
+  distinct() |>
   filter(
     watershed %in% selection,
     year >= min_year,
