@@ -1,0 +1,64 @@
+
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+
+.map-description {
+    margin: 0;
+}
+
+.technical-details {
+    color: gray;
+    font-size: 10pt;
+    margin-top: 2.5em;
+}
+
+.map-content {
+    width: 900px;
+    margin: 1em auto;
+}
+
+.map-container {
+    padding: 0 0 1em 0;
+}
+
+.map-object {
+    height: 700px;
+}
+
+.mapboxgl-container, .mapboxgl-canvas {
+    width: 100% !important;
+}
+
+.mapboxgl-map {
+    width: 100% !important;
+    position: absolute;
+    left: 0 !important;
+}
+
+.modebar {    
+    top: 65px !important;
+}
+
+.colorbar {
+    transform: translate(0, 64px); 
+    text-align: left;       
+}
+
+g.hoverlayer {
+    transform: none !important;
+    top: 0;
+    left: 0;
+}
+
+/* g.hovertext > path {
+    transform: translate(0, -205px);
+} */
+
+/* g.hovertext {
+    transform: translate(0, 205px);
+} */
+
+
+
+.mapboxgl-map .mapboxgl-popup-tip{display:none;}

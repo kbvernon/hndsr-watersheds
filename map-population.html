@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+        <script src="https://cdn.plot.ly/plotly-2.27.1.min.js" charset="utf-8"></script>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap">
+        <link rel="stylesheet" href="map-population-resources/map-style.css">
+
+    </head>
+    <body>
+        <div class="map-content">
+            <div class="map-main">
+                <h1 class="map-title">Populations Trends Across the US Southwest</h1>
+                <p class="map-description"> Explore humanity's evolving presence in the US Southwest from 750 to 1600 CE.<sup style="color:gray;">1</sup> Hovering over a shape will give you more details about that time and place. </p>
+                <div class="map-container">
+                    <div id="map-object"></div>
+                </div>
+                <p class="technical-details">1. Population estimates are aggregated across HUC10 watersheds and 25-year intervals. Values are based on estimates of the number of occupied rooms per time interval. For visualization purposes, values are log-transformed (zero counts are calculated as log(1e-5)).</p>            
+            </div>
+        </div>        
+    </body>
+    <script src="map-population-resources/map-build.js"></script>
+    <script>
+
+        var features = "https://raw.githubusercontent.com/kbvernon/hndsr-watersheds/main/data/watersheds.geojson";
+        var attributes = "data/room-counts.csv";
+        var basemap = "https://server.arcgisonline.com/arcgis/rest/services/World_Terrain_Base/MapServer/tile/{z}/{y}/{x}";
+        var div = "map-object";
+
+        build_map(features, attributes, basemap, div);
+
+    </script>
+</html>

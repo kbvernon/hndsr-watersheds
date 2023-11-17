@@ -13,6 +13,6 @@ execute:
 
 [Select watersheds app](observable-map.html)  
 
-[Explore population change through time](plotly-map.html)  
+[Explore population change through time](map-population.html)  
 
 :::
