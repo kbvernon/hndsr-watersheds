@@ -13,11 +13,50 @@
         <div class="map-content">
             <div class="map-main">
                 <h1 class="map-title">Populations Trends Across the US Southwest</h1>
-                <p class="map-description"> Explore humanity's evolving presence in the US Southwest from 750 to 1600 CE.<sup style="color:gray;">1</sup> Hovering over a shape will give you more details about that time and place. </p>
+                <p class="map-description"> Explore humanity's evolving presence 
+                in the US Southwest from 750 to 1600 CE. Hovering over a shape 
+                will give you more details about that time and place. See 
+                <a href="#details">How was this map made?</a> for more details.</p>
                 <div class="map-container">
                     <div id="map-object"></div>
                 </div>
-                <p class="technical-details">1. Population estimates are aggregated across HUC10 watersheds and 25-year intervals. Values are based on estimates of the number of occupied rooms per time interval. For visualization purposes, values are log-transformed (zero counts are calculated as log(1e-5)).</p>            
+                <h2 id="#details">How was this map made?</h2>
+                <p>This map shows population estimates aggregated across 
+                <a href="https://www.usgs.gov/national-hydrography/watershed-boundary-dataset">HUC10 watersheds</a>
+                watersheds (a level of definition of watersheds used by the US 
+                Geological Survey) and 25-year intervals. To arrive at those 
+                estimates, we counted up the rooms in each residential site in 
+                each watershed, under the assumption that more rooms means more 
+                people. This is a common strategy in archaeology, and it is also 
+                the strategy used by demographers today to estimate population 
+                in areas where governments lack the resources to conduct a census 
+                (for example, in the European Union's 
+                <a href="https://ghsl.jrc.ec.europa.eu/">Global Human Settlement Layer</a>).</p>
+                <p>Unfortunately, it is not reasonable to infer population size 
+                directly from room counts. That would be like arguing that there 
+                must be 100 people staying at a hotel because the hotel has 100 
+                rooms. In reality, some number of rooms will typically be vacant 
+                on a given day. The situation gets more complicated if we 
+                imagine the hotel adding or removing rooms over time, which is 
+                what happened at residential sites in the US Southwest during 
+                the time period being modeled.</p>
+                <p>To account for vacancy and changes in the sizes of 
+                settlements over time, we simply assumed that each room 
+                represents one person and that persons were evenly 
+                (or uniformly) distributed over the years each site was occupied, 
+                based on the associated pottery. For instance, if people lived 
+                at a residential site for 100 years, that's four 25-year 
+                intervals, and there are four rooms at that residence, then it 
+                is assumed that one person lived at the site in each 25-year 
+                interval. This was done for each residential site in the cyberSW 
+                database, then those estimates were added up for each watershed 
+                and time interval.</p>
+                <p>There's a lot of variation in these estimates, with some 
+                areas having huge populations, and others almost no human 
+                presence at all. It's hard to visualize spatial and temporal 
+                trends with information like this, so the map actually displays 
+                the logarithm of occupied rooms (zero counts are listed as 
+                log(1e-5)).</p>
             </div>
         </div>        
     </body>
